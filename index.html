@@ -55,7 +55,7 @@
         }
 
         /* --- Page d'accueil --- */
-        #home-page header {
+        #home-page header, #links-page header {
             margin-bottom: 25px;
             animation: slideDown 0.7s ease-out;
         }
@@ -93,7 +93,7 @@
             text-shadow: 1px 1px 2px var(--black);
         }
 
-        #home-page main {
+        #home-page main, #links-page main {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -158,6 +158,29 @@
             box-shadow: none;
             cursor: not-allowed;
         }
+        
+        .alternative-link-section {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1rem;
+        }
+        .btn-ici {
+            background-color: var(--green-admis);
+            color: var(--white);
+            padding: 6px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            border: 1px solid var(--black);
+            transition: transform 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .btn-ici:hover {
+            transform: scale(1.1);
+        }
 
         #message-container {
             margin-top: 20px;
@@ -167,7 +190,6 @@
             font-weight: bold;
         }
 
-        /* --- Section des mentions spéciales --- */
         .special-mentions {
             margin-top: 40px;
             padding-top: 20px;
@@ -273,6 +295,54 @@
         .btn-back:hover {
             transform: scale(1.05);
         }
+        
+        /* --- Page des Liens Alternatifs --- */
+        #links-page {
+            display: none; /* Cachée par défaut */
+            justify-content: flex-start; /* Aligner en haut */
+        }
+        #links-page main {
+            justify-content: flex-start;
+            padding-top: 20px;
+        }
+        .links-title {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--green-admis);
+            text-shadow: 1px 1px 2px var(--black);
+        }
+        .links-subtitle {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .official-links-list {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+        .official-links-list li {
+            margin-bottom: 20px;
+        }
+        .official-link {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--light-blue);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .official-link:hover {
+            background-color: var(--light-blue);
+            color: var(--dark-green);
+            transform: translateY(-3px);
+        }
 
         /* Responsive */
         @media (max-width: 480px) {
@@ -298,13 +368,18 @@
         <main>
             <form id="matricule-form">
                 <div class="input-group">
-                    <input type="text" id="matricule" name="matricule" placeholder="Entrez votre numéro de matricule" required>
+                    <input type="text" id="matricule" name="matricule" placeholder="Entrez votre numéro matricule" required>
                 </div>
                 <button type="submit" id="verify-button" class="btn-verify">Vérifier</button>
             </form>
+            
+            <div class="alternative-link-section">
+                <span>Ou cliquez</span>
+                <a href="#" id="show-links-button" class="btn-ici">ICI</a>
+            </div>
+
             <div id="message-container"></div>
             
-            <!-- LES MENTIONS SPÉCIALES SONT ICI, COMME DEMANDÉ -->
             <div class="special-mentions">
                 <p class="mention-text wave-text">N’oublie pas de me faire un dépôt wave si tu es admis</p>
                 <p class="mention-text wave-number">+225 05 04 83 52 85</p>
@@ -325,23 +400,45 @@
         <a href="#" id="back-button" class="btn-back">Retour</a>
     </div>
 
+    <!-- === PAGE DES LIENS ALTERNATIFS (cachée par défaut) === -->
+    <div id="links-page" class="page">
+        <header>
+            <h1 class="links-title">BONNE CHANCE À VOUS 💚</h1>
+            <p class="links-subtitle">Une prière ne tombe jamais à l'eau, seul Dieu sait ce qui est bon pour vous.</p>
+        </header>
+        <main>
+            <ul class="official-links-list">
+                <li><a href="https://agce.exam-deco.org/edit/resultats-examen-bac-2025/" target="_blank" rel="noopener noreferrer" class="official-link">Site Officiel 1</a></li>
+                <li><a href="https://www.men-deco.org/resultats-bac-2025/" target="_blank" rel="noopener noreferrer" class="official-link">Site Officiel 2</a></li>
+                <li><a href="https://itdeco.ci/examens/resultat/bac" target="_blank" rel="noopener noreferrer" class="official-link">Site Officiel 3</a></li>
+            </ul>
+        </main>
+        <footer>
+            <a href="#" id="back-from-links-button" class="btn-back">Retour</a>
+        </footer>
+    </div>
+
 
     <!-- === DEBUT DU SCRIPT JAVASCRIPT === -->
     <script>
         // --- Éléments du DOM ---
         const homePage = document.getElementById('home-page');
         const resultPage = document.getElementById('result-page');
+        const linksPage = document.getElementById('links-page');
         const form = document.getElementById('matricule-form');
         const matriculeInput = document.getElementById('matricule');
         const messageContainer = document.getElementById('message-container');
         const resultDisplay = document.getElementById('result-display');
         const backButton = document.getElementById('back-button');
         const verifyButton = document.getElementById('verify-button');
+        const showLinksButton = document.getElementById('show-links-button');
+        const backFromLinksButton = document.getElementById('back-from-links-button');
 
         // --- Logique d'affichage ---
         function showPage(pageToShow) {
             homePage.style.display = 'none';
             resultPage.style.display = 'none';
+            linksPage.style.display = 'none';
             pageToShow.style.display = 'flex';
         }
 
@@ -378,7 +475,7 @@
             event.preventDefault();
             const matricule = matriculeInput.value.trim();
             if (!matricule) {
-                messageContainer.textContent = "Veuillez entrer un numéro de matricule.";
+                messageContainer.textContent = "Veuillez entrer un numéro matricule.";
                 return;
             }
 
@@ -395,13 +492,9 @@
             verifyButton.disabled = true;
             verifyButton.textContent = "RECHERCHE...";
 
-            // =================================================================
-            // ===           MODIFICATION FAITE ICI                        ===
-            // =================================================================
             // --- APPEL AU ROBOT (BACKEND) ---
             const backendUrl = `https://robot-bac.vercel.app/api/resultat?matricule=${matricule}`;
             
-            // Le code ci-dessous est maintenant actif et contactera votre robot.
             fetch(backendUrl)
             .then(response => {
                 if (!response.ok) {
@@ -428,6 +521,16 @@
             showPage(homePage);
             messageContainer.textContent = "";
             matriculeInput.value = "";
+        });
+
+        showLinksButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            showPage(linksPage);
+        });
+
+        backFromLinksButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            showPage(homePage);
         });
 
     </script>
