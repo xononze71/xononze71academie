@@ -4,175 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Résultats BAC 2025 - OUBA</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Orbitron:wght@900&display=swap" rel="stylesheet">
-    <style>
-        :root { --orange-main: #F97316; --orange-dark: #C2410C; --green-success: #16A34A; --green-link: #22C55E; --white-text: #F8FAFC; --slate-bg: #1E293B; --slate-card: #334155; --black-outline: #000000; --red-fail: #DC2626; --yellow-wait: #F59E0B;}
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--slate-bg); background-image: linear-gradient(145deg, var(--slate-bg) 0%, #0F172A 100%); color: var(--white-text); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .page { width: 100%; max-width: 500px; text-align: center; background: var(--slate-card); padding: 30px 40px; border-radius: 25px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); display: flex; flex-direction: column; min-height: 85vh; }
-        #home-page header, #links-page header { margin-bottom: 20px; animation: fadeInDown 0.6s ease-out; }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        .profile-pic { width: 130px; height: 130px; border-radius: 50%; border: 4px solid var(--orange-main); box-shadow: 0 0 25px var(--orange-main); object-fit: cover; }
-        .title-name { font-family: 'Orbitron', sans-serif; font-size: 3.2rem; font-weight: 900; color: var(--white-text); text-shadow: 0 0 10px var(--orange-main); margin-top: 15px; }
-        .subtitle { font-size: 1.1rem; font-weight: 700; color: var(--orange-main); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; }
-        .percentage-info { font-size: 1rem; color: rgba(255, 255, 255, 0.8); margin-top: 10px; }
-        #home-page main, #links-page main { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; animation: fadeIn 1s 0.2s ease-in-out both; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .input-group { margin-bottom: 20px; }
-        #matricule { width: 100%; padding: 15px; font-size: 1.2rem; background-color: var(--slate-bg); border: 2px solid var(--slate-bg); border-radius: 10px; color: var(--orange-main); text-align: center; transition: all 0.3s ease; }
-        #matricule::placeholder { color: rgba(255, 255, 255, 0.4); }
-        #matricule:focus { outline: none; border-color: var(--orange-main); box-shadow: 0 0 15px var(--orange-main); }
-        .btn-verify { width: 100%; padding: 15px; font-size: 1.3rem; font-weight: 900; color: var(--white-text); background: linear-gradient(145deg, var(--orange-main), var(--orange-dark)); border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; text-shadow: 1px 1px 2px var(--black-outline); }
-        .btn-verify:hover:not(:disabled) { box-shadow: 0 0 20px var(--orange-main); transform: translateY(-3px); }
-        .btn-verify:disabled { background: #555; box-shadow: none; cursor: not-allowed; }
-        .alternative-link-section { margin-top: 20px; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 1rem; }
-        .btn-ici { background-color: transparent; color: var(--green-link); padding: 5px 15px; border-radius: 8px; text-decoration: none; font-weight: 700; border: 1px solid var(--green-link); transition: all 0.2s; }
-        .btn-ici:hover { background-color: var(--green-link); color: var(--white-text); }
-        #message-container { margin-top: 15px; font-size: 1.1rem; color: var(--yellow-wait); min-height: 25px; font-weight: bold; }
-        .special-mentions { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); animation: fadeInUp 0.6s 0.4s ease-out both; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .mention-text { line-height: 1.6; }
-        .wave-text { font-style: italic; color: rgba(255, 255, 255, 0.8); margin-bottom: 8px; }
-        .wave-number { font-weight: 700; font-size: 1.2rem; color: var(--orange-main); margin-bottom: 15px; }
-        .intention-text { font-weight: 500; }
-        #result-page { display: none; justify-content: center; animation: zoomIn 0.5s ease-out; }
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-        .result-box { padding: 40px 20px; border-radius: 20px; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); border: 2px solid var(--black-outline); width: 100%; }
-        .result-box.admis { background: linear-gradient(145deg, var(--green-success), #15803D); box-shadow: 0 0 30px var(--green-success); }
-        .result-box.refuse { background: linear-gradient(145deg, var(--red-fail), #991B1B); box-shadow: 0 0 30px var(--red-fail); }
-        .result-box.message-info { background: linear-gradient(145deg, #3B82F6, #1D4ED8); border-color: var(--white-text); box-shadow: 0 0 30px #3B82F6; }
-        .result-intro { font-size: 1.3rem; margin-bottom: 15px; font-weight: 500; }
-        .result-status { font-family: 'Orbitron', sans-serif; font-size: 4.5rem; font-weight: 900; margin-bottom: 15px; }
-        .result-points { font-size: 1.6rem; font-weight: 700; }
-        .btn-back { display: inline-block; margin-top: 30px; padding: 12px 30px; background-color: var(--white-text); color: var(--slate-bg); text-decoration: none; font-weight: 900; border-radius: 10px; transition: transform 0.2s ease; text-transform: uppercase; }
-        .btn-back:hover { transform: scale(1.05); }
-        #links-page { display: none; justify-content: flex-start; }
-        #links-page main { justify-content: flex-start; padding-top: 20px; }
-        .links-title { font-size: 2rem; font-weight: 900; color: var(--green-link); text-shadow: 1px 1px 2px var(--black-outline); }
-        .links-subtitle { margin-top: 15px; font-size: 1.1rem; font-style: italic; color: rgba(255, 255, 255, 0.9); }
-        .official-links-list { list-style: none; padding: 0; width: 100%; margin-top: 20px; }
-        .official-links-list li { margin-bottom: 20px; }
-        .official-link { display: block; width: 100%; padding: 20px; background-color: rgba(255, 255, 255, 0.05); border: 1px solid var(--orange-main); color: var(--white-text); text-decoration: none; border-radius: 10px; font-size: 1.2rem; font-weight: 700; transition: all 0.3s ease; }
-        .official-link:hover { background-color: var(--orange-main); color: var(--white-text); transform: translateY(-3px); }
-        @media (max-width: 480px) { .title-name { font-size: 2.8rem; } .subtitle { font-size: 1rem; } .result-status { font-size: 3.5rem; } .page { padding: 20px; } }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="home-page" class="page">
-        <header>
-            <img src="https://res.cloudinary.com/du0lxnmgq/image/upload/v1751827307/InShot_20250706_172114759_vobwf3.png" alt="Photo de OUBA" class="profile-pic" onerror="this.onerror=null;this.src='https://placehold.co/140x140/013220/FFFFFF?text=OUBA';">
-            <h1 class="title-name">OUBA</h1>
-            <h2 class="subtitle">RÉSULTATS BAC 2025</h2>
-            <p class="percentage-info">Pourcentage BAC 2025 : 40,15% (Contre 34,17% en 2024)</p>
-        </header>
-        <main>
-            <form id="matricule-form">
-                <div class="input-group">
-                    <input type="text" id="matricule" name="matricule" placeholder="Entrez votre numéro matricule" required>
+    <div class="page-container">
+        <div class="card">
+            <header class="card-header">
+                <img src="https://res.cloudinary.com/du0lxnmgq/image/upload/v1751827307/InShot_20250706_172114759_vobwf3.png" alt="Photo de OUBA" class="profile-pic">
+                <h1 class="title-name">OUBA</h1>
+                <h2 class="subtitle">RÉSULTATS BAC 2025</h2>
+                <p class="percentage-info">Pourcentage d'admission : 40,15% (Contre 34,17% en 2024)</p>
+            </header>
+            <main class="card-body">
+                <form action="resultat.html" method="GET" id="matricule-form">
+                    <div class="input-group">
+                        <input type="text" id="matricule" name="matricule" placeholder="Entrez votre numéro matricule" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Vérifier</button>
+                </form>
+                <div class="alternative-section">
+                    <span>Ou consultez les sites officiels</span>
+                    <a href="liens.html" class="btn btn-secondary">ICI</a>
                 </div>
-                <button type="submit" id="verify-button" class="btn-verify">Vérifier</button>
-            </form>
-            <div class="alternative-link-section">
-                <span>Ou cliquez</span>
-                <a href="#" id="show-links-button" class="btn-ici">ICI</a>
-            </div>
-            <div id="message-container"></div>
-            <div class="special-mentions">
-                <p class="mention-text wave-text">N’oublie pas de me faire un dépôt wave si tu es admis</p>
-                <p class="mention-text wave-number">+225 05 04 83 52 85</p>
-                <p class="mention-text intention-text">N’oublie pas de prendre une bonne intention avant de rentrer ton numéro matricule</p>
-            </div>
-        </main>
+                <div class="special-mentions">
+                    <p class="mention-text wave-text">N’oublie pas de me faire un dépôt wave si tu es admis</p>
+                    <p class="mention-text wave-number">+225 05 04 83 52 85</p>
+                    <p class="mention-text intention-text">Prends une bonne intention avant de vérifier</p>
+                </div>
+            </main>
+        </div>
     </div>
-    <div id="result-page" class="page">
-        <div id="result-display"></div>
-        <a href="#" id="back-button" class="btn-back">Retour</a>
-    </div>
-    <div id="links-page" class="page">
-        <header>
-            <h1 class="links-title">BONNE CHANCE À VOUS 💚</h1>
-            <p class="links-subtitle">Une prière ne tombe jamais à l'eau, seul Dieu sait ce qui est bon pour vous.</p>
-        </header>
-        <main>
-            <ul class="official-links-list">
-                <li><a href="https://itdeco.ci/examens/resultat/bac/" target="_blank" rel="noopener noreferrer" class="official-link">Autre lien 1</a></li>
-                <li><a href="https://agce.exam-deco.org/edit/resultats-examen-bac-2025/" target="_blank" rel="noopener noreferrer" class="official-link">Autre lien 2</a></li>
-                <li><a href="https://www.men-deco.org/" target="_blank" rel="noopener noreferrer" class="official-link">Autre lien 3</a></li>
-                <li><a href="https://www.men-deco.org/resultats-bac-2025/" target="_blank" rel="noopener noreferrer" class="official-link">Autre lien 4</a></li>
-            </ul>
-        </main>
-        <footer>
-            <a href="#" id="back-from-links-button" class="btn-back">Retour</a>
-        </footer>
-    </div>
-    <script>
-        const homePage = document.getElementById('home-page');
-        const resultPage = document.getElementById('result-page');
-        const linksPage = document.getElementById('links-page');
-        const form = document.getElementById('matricule-form');
-        const matriculeInput = document.getElementById('matricule');
-        const messageContainer = document.getElementById('message-container');
-        const resultDisplay = document.getElementById('result-display');
-        const backButton = document.getElementById('back-button');
-        const verifyButton = document.getElementById('verify-button');
-        const showLinksButton = document.getElementById('show-links-button');
-        const backFromLinksButton = document.getElementById('back-from-links-button');
-        function showPage(pageToShow) {
-            homePage.style.display = 'none';
-            resultPage.style.display = 'none';
-            linksPage.style.display = 'none';
-            pageToShow.style.display = 'flex';
-        }
-        function displayResult(data) {
-            resultDisplay.innerHTML = '';
-            let resultBox;
-            if (data.message) {
-                resultBox = `<div class="result-box message-info"><p class="result-intro">${data.message}</p></div>`;
-            } else if (data.status) {
-                const isAdmis = data.status.toUpperCase() === 'ADMIS';
-                const boxClass = isAdmis ? 'admis' : 'refuse';
-                const introText = isAdmis ? "Félicitations vous êtes" : "Une prière ne tombe jamais à l’eau, Dieu seul sait pourquoi";
-                resultBox = `<div class="result-box ${boxClass}"><p class="result-intro">${introText}</p><h1 class="result-status">${data.status.toUpperCase()}</h1><p class="result-points">Points obtenus : ${data.points || 'N/A'}</p></div>`;
-            }
-            resultDisplay.innerHTML = resultBox;
-            showPage(resultPage);
-        }
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const matricule = matriculeInput.value.trim();
-            if (!matricule) {
-                messageContainer.textContent = "Veuillez entrer un numéro matricule.";
-                return;
-            }
-            messageContainer.textContent = "Vérification en cours, veuillez patienter...";
-            verifyButton.disabled = true;
-            verifyButton.textContent = "RECHERCHE...";
-            const backendUrl = `https://robot-bac.vercel.app/api/resultat?matricule=${matricule}`;
-            fetch(backendUrl)
-            .then(response => {
-                if (!response.ok) { return response.json().then(err => { throw new Error(err.message || 'Erreur du serveur.') }); }
-                return response.json();
-            })
-            .then(data => { displayResult(data); })
-            .catch(error => { displayResult({ message: error.message }); })
-            .finally(() => { verifyButton.disabled = false; verifyButton.textContent = "Vérifier"; });
-        });
-        backButton.addEventListener('click', function(event) {
-            event.preventDefault();
-            showPage(homePage);
-            messageContainer.textContent = "";
-            matriculeInput.value = "";
-        });
-        showLinksButton.addEventListener('click', function(event) {
-            event.preventDefault();
-            showPage(linksPage);
-        });
-        backFromLinksButton.addEventListener('click', function(event) {
-            event.preventDefault();
-            showPage(homePage);
-        });
-    </script>
 </body>
 </html>
