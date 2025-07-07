@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre Résultat - BAC 2025</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-container">
+        <div id="result-card" class="card">
+            <div id="result-content">
+                <div class="loading-container">
+                    <h1 class="loading-title">Recherche en cours...</h1>
+                    <div class="spinner"></div>
+                    <p class="loading-subtext">Le robot consulte les sites officiels pour vous.</p>
+                </div>
+            </div>
+            <a href="index.html" class="btn btn-tertiary">Retour à l'accueil</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const resultDisplay = document.getElementById('result-content');
+            const params = new URLSearchParams(window.location.search);
+            const matricule = params.get('matricule');
+
+            if (!matricule) {
+                resultDisplay.innerHTML = `<h1 class="result-status-fail">Erreur</h1><p class="result-intro">Aucun matricule fourni.</p>`;
+                return;
+            }
+
+            const backendUrl = `https://robot-bac.vercel.app/api/resultat?matricule=${matricule}`;
+
+            fetch(backendUrl)
+                .then(response => {
+                    if (!response.ok) { return response.json().then(err => { throw new Error(err.message || 'Le robot a rencontré une erreur.') }); }
+                    return response.json();
+                })
+                .then(data => {
+                    let resultHtml;
+                    if (data.status.toUpperCase() === 'ADMIS') {
+                        resultHtml = `
+                            <div class="result-header-success">
+                                <h1 class="result-status-success">ADMIS</h1>
+                                <p class="result-intro">Félicitations, tout le travail a payé !</p>
+                            </div>
+                            <div class="result-body">
+                                <p class="result-points-label">Points Obtenus</p>
+                                <p class="result-points">${data.points || 'N/A'}</p>
+                            </div>
+                        `;
+                    } else {
+                        resultHtml = `
+                            <div class="result-header-fail">
+                                <h1 class="result-status-fail">REFUSÉ</h1>
+                                <p class="result-intro">Une prière ne tombe jamais à l’eau.<br>Dieu seul sait ce qui est bon pour vous.</p>
+                            </div>
+                             <div class="result-body">
+                                <p class="result-points-label">Points Obtenus</p>
+                                <p class="result-points">${data.points || 'N/A'}</p>
+                            </div>
+                        `;
+                    }
+                    resultDisplay.innerHTML = resultHtml;
+                })
+                .catch(error => {
+                    resultDisplay.innerHTML = `
+                        <div class="result-header-fail">
+                            <h1 class="result-status-fail">Erreur</h1>
+                            <p class="result-intro">${error.message}</p>
+                        </div>
+                    `;
+                });
+        });
+    </script>
+</body>
+</html>
