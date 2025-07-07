@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Résultats BAC 2025 - OUBA</title>
+    <title>Résultats BAC SESSION 2025 - OUBA</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Orbitron:wght@900&display=swap" rel="stylesheet">
@@ -395,11 +395,13 @@
             verifyButton.disabled = true;
             verifyButton.textContent = "RECHERCHE...";
 
+            // =================================================================
+            // ===           MODIFICATION FAITE ICI                        ===
+            // =================================================================
             // --- APPEL AU ROBOT (BACKEND) ---
-            const backendUrl = `https://VOTRE-ROBOT-URL.vercel.app/api/resultat?matricule=${matricule}`;
+            const backendUrl = `https://robot-bac.vercel.app/api/resultat?matricule=${matricule}`;
             
-            // DÉCOMMENTEZ LES LIGNES CI-DESSOUS QUAND LE ROBOT EST PRÊT
-            /*
+            // Le code ci-dessous est maintenant actif et contactera votre robot.
             fetch(backendUrl)
             .then(response => {
                 if (!response.ok) {
@@ -418,24 +420,7 @@
                  verifyButton.disabled = false;
                  verifyButton.textContent = "Vérifier";
             });
-            */
-
-            // --- SIMULATION POUR TESTER LE DESIGN (à supprimer) ---
-            setTimeout(() => {
-                const randomNumber = Math.random();
-                let demoResult;
-                if (randomNumber < 0.6) {
-                    demoResult = { status: 'ADMIS', points: '15.52' };
-                } else if (randomNumber < 0.9) {
-                    demoResult = { status: 'REFUSÉ', points: '08.15' };
-                } else {
-                    demoResult = { message: 'Matricule non trouvé. Veuillez vérifier.' };
-                }
-                displayResult(demoResult);
-                verifyButton.disabled = false;
-                verifyButton.textContent = "Vérifier";
-            }, 2000);
-            // --- FIN DE LA SIMULATION ---
+            
         });
 
         backButton.addEventListener('click', function(event) {
