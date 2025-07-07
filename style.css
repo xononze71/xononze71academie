@@ -39,3 +39,4 @@ body { font-family: 'Inter', sans-serif; background-color: var(--grey-bg); color
 .links-list { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; }
 .official-link { background: var(--white-main); border: 2px solid var(--orange-main); color: var(--orange-main); padding: 15px; font-weight: 700; font-size: 1.1rem; border-radius: 10px; text-decoration: none; display: block; }
 .official-link:hover { background: var(--orange-main); color: var(--white-main); }
+
