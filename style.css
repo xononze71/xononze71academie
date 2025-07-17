@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Orbitron:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
 :root {
     --orange-main: #F97316;
@@ -7,9 +7,9 @@
     --green-dark: #15803D;
     --white-main: #FFFFFF;
     --slate-text: #0F172A;
-    --black-shadow: rgba(0, 0, 0, 0.2);
+    --black-shadow: rgba(0, 0, 0, 0.15);
     --grey-bg: #F1F5F9;
-    --grey-border: #E2E8F0;
+    --grey-border: #CBD5E1;
 }
 
 * {
@@ -24,48 +24,55 @@ body {
     color: var(--slate-text);
     display: flex;
     justify-content: center;
-    align-items: center;
+    padding: 40px 20px;
     min-height: 100vh;
-    padding: 20px;
 }
 
 .page-container {
     width: 100%;
-    max-width: 700px;
+    max-width: 960px;
 }
 
 .card {
     background: var(--white-main);
-    padding: 30px 40px;
+    padding: 40px 50px;
     border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
     text-align: center;
+    width: 100%;
 }
 
 .card-header {
-    position: relative;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
     border-bottom: 1px solid var(--grey-border);
 }
 
+.header-content {
+    text-align: left;
+    flex-grow: 1;
+}
+
 .profile-pic {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     border: 4px solid var(--white-main);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    margin-left: 30px;
+    flex-shrink: 0;
 }
 
 .main-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2rem;
-    text-align: left;
-    line-height: 1.3;
+    font-family: 'Georgia', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.2;
     text-shadow: 1px 1px 2px var(--black-shadow);
+    color: var(--slate-text);
 }
 
 .main-title .highlight {
@@ -73,41 +80,42 @@ body {
 }
 
 .content-section {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .section-title {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     color: var(--slate-text);
     position: relative;
+    padding-bottom: 10px;
 }
 
 .section-title::after {
     content: '';
     display: block;
-    width: 60px;
-    height: 3px;
+    width: 80px;
+    height: 4px;
     background-color: var(--orange-main);
-    margin: 10px auto 0;
+    margin: 15px auto 0;
 }
 
 .btn {
     display: block;
     width: 100%;
-    padding: 18px;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
     font-weight: 700;
-    border-radius: 10px;
+    border-radius: 12px;
     text-decoration: none;
     text-transform: uppercase;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    text-shadow: 1px 1px 1px var(--black-shadow);
+    text-shadow: 1px 1px 2px var(--black-shadow);
 }
 
 .btn-primary {
@@ -117,7 +125,8 @@ body {
 
 .btn-primary:hover {
     background: var(--orange-dark);
-    transform: translateY(-3px);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
 }
 
 .btn-secondary {
@@ -127,12 +136,14 @@ body {
 
 .btn-secondary:hover {
     background: var(--green-dark);
-    transform: translateY(-3px);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(22, 163, 74, 0.3);
 }
 
 .service-page-header {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
+    font-family: 'Georgia', serif;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
     color: var(--green-main);
     text-shadow: 1px 1px 2px var(--black-shadow);
 }
@@ -140,20 +151,23 @@ body {
 .service-actions {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .btn-main-action {
     padding: 25px;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
 }
 
 .btn-info {
     background: transparent;
     color: var(--slate-text);
     border: 2px solid var(--slate-text);
-    padding: 12px;
-    font-size: 1rem;
+    padding: 15px;
+    font-size: 1.1rem;
+    text-shadow: none;
 }
 
 .btn-info:hover {
@@ -162,17 +176,20 @@ body {
 }
 
 .btn-back {
-    margin-top: 30px;
+    margin-top: 40px;
     background: transparent;
     color: var(--slate-text);
     opacity: 0.8;
+    font-size: 1rem;
+    text-decoration: none;
+    display: inline-block;
 }
 
-@media (max-width: 600px) {
-    .card { padding: 20px; }
-    .main-title { font-size: 1.5rem; }
-    .profile-pic { width: 60px; height: 60px; top: 0; right: 0; }
-    .section-title { font-size: 1.2rem; }
-    .btn { padding: 15px; font-size: 1rem; }
+@media (max-width: 768px) {
+    .card { padding: 30px 20px; }
+    .card-header { flex-direction: column; }
+    .header-content { text-align: center; }
+    .main-title { font-size: 2rem; }
+    .profile-pic { order: -1; margin: 0 auto 20px auto; }
 }
 
